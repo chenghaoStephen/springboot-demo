@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.abc.shiro.dao.PermissionDao">
+    <resultMap id="userMap" type="com.abc.shiro.entity.Permission">
+        <id column="id" property="id"/>
+        <result column="role_name" property="rolename"/>
+        <result column="permission" property="permission"/>
+    </resultMap>
+
+    <select id="fetchPermissionsByUsername" resultType="java.lang.String">
+        select p.permission
+        from user_roles r
+        left join roles_permissions p on r.role_name=p.role_name
+        where r.username = #{username}
+    </select>
+
+</mapper>
