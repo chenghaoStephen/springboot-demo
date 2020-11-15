@@ -41,6 +41,7 @@ public class CustomRealm extends AuthorizingRealm {
         // 从认证信息中拿出用户名
         String username = (String)principalCollection.getPrimaryPrincipal();
         // 从数据库获取角色、权限数据（可配置从缓存中获取）
+        System.out.println("从数据库获取授权数据");
         Set<String> roleList = roleService.fetchRolesByUsername(username);
         Set<String> permissionList = permissionService.fetchPermissionsByUsername(username);
         // 封装权限信息并返回

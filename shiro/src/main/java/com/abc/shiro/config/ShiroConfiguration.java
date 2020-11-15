@@ -1,9 +1,11 @@
 package com.abc.shiro.config;
 
+import com.abc.shiro.cache.RedisCacheManager;
 import com.abc.shiro.realm.CustomRealm;
 import com.abc.shiro.session.CustomSessionDao;
 import com.abc.shiro.session.CustomSessionManager;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
+import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.session.mgt.eis.SessionDAO;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
@@ -67,6 +69,7 @@ public class ShiroConfiguration {
         customRealm.setCredentialsMatcher(matcher);
         // 配置自定义sessionManager
         manager.setSessionManager(sessionManager());
+        manager.setCacheManager(cacheManager());
         return manager;
     }
 
@@ -96,6 +99,12 @@ public class ShiroConfiguration {
     public SessionDAO sessionDao() {
         CustomSessionDao sessionDao = new CustomSessionDao();
         return sessionDao;
+    }
+
+    @Bean
+    public CacheManager cacheManager() {
+        RedisCacheManager cacheManager = new RedisCacheManager();
+        return cacheManager;
     }
 
     /**
