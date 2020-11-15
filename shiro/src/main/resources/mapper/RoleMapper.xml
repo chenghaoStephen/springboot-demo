@@ -10,7 +10,7 @@
 
     <select id="fetchRolesByUsername" resultType="java.lang.String">
         select role_name from user_roles
-        where usernanme = #{username}
+        where username = #{username}
     </select>
 
 </mapper>
