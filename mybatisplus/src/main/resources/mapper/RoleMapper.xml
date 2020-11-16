@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.abc.mybatisplus.mapper.RoleMapper">
+    <resultMap id="roleMap" type="com.abc.mybatisplus.entity.Role">
+        <id column="roleid" property="roleid"/>
+        <result column="rolename" property="rolename"/>
+        <result column="permissionname" property="permissionname"/>
+    </resultMap>
+
+    <select id="fetchRoles" resultMap="roleMap">
+        select r.roleid, r.rolename, p.permissionname
+        from role r
+        left join permission p on r.rolename = p.rolename
+    </select>
+
+</mapper>
