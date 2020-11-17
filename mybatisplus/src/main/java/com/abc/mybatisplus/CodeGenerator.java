@@ -28,7 +28,7 @@ public class CodeGenerator {
         System.out.println(help.toString());
         if (scanner.hasNext()) {
             String ipt = scanner.next();
-            if (StringUtils.isNotBlank(ipt)) {
+            if (StringUtils.isNotEmpty(ipt)) {
                 return ipt;
             }
         }
@@ -41,10 +41,18 @@ public class CodeGenerator {
 
         // 全局配置
         GlobalConfig gc = new GlobalConfig();
-        String projectPath = System.getProperty("user.dir"); // 获取工程根目录
+        // 获取工程根目录
+        String projectPath = System.getProperty("user.dir");
+        // 拼接代码最终生成目录
         gc.setOutputDir(projectPath + "/" + "mybatisplus" + "/src/main/java");
+        // 开发者信息
         gc.setAuthor("stephen");
+        // 是否打开目录
         gc.setOpen(false);
+        // 重新生成文件时是否覆盖
+        gc.setFileOverride(true);
+        // 配置生成的Service名称，默认会有I前缀
+//        gc.setServiceName("%sService");
         // gc.setSwagger2(true); 实体属性 Swagger2 注解
         mpg.setGlobalConfig(gc);
 
@@ -121,6 +129,7 @@ public class CodeGenerator {
 
         // 策略配置
         StrategyConfig strategy = new StrategyConfig();
+        // 数据库与实体、字段名称映射，下划线转驼峰
         strategy.setNaming(NamingStrategy.underline_to_camel);
         strategy.setColumnNaming(NamingStrategy.underline_to_camel);
 //        strategy.setSuperEntityClass("你自己的父类实体,没有就不用设置!");
@@ -132,9 +141,12 @@ public class CodeGenerator {
 //        strategy.setSuperEntityColumns("id");
         strategy.setInclude(scanner("表名，多个英文逗号分割").split(","));
         strategy.setControllerMappingHyphenStyle(true);
+        // 数据表有同意前缀时配置
 //        strategy.setTablePrefix(pc.getModuleName() + "_");
         mpg.setStrategy(strategy);
         mpg.setTemplateEngine(new FreemarkerTemplateEngine());
+
+        // 执行代码生成
         mpg.execute();
     }
 
