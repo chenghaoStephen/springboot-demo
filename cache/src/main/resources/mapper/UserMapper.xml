@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.abc.cache.dao.UserDao">
+    <resultMap id="userMap" type="com.abc.cache.entity.User">
+        <id column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="sex" property="sex"/>
+        <result column="address" property="address"/>
+    </resultMap>
+
+    <select id="loadById" resultMap="userMap">
+        select id,username,sex,address from user
+        where id = #{id}
+    </select>
+
+    <insert id="saveUser">
+        insert into user (id,username,sex,address)
+        values (#{id}, #{username}, #{sex}, #{address})
+    </insert>
+
+    <update id="updateById">
+        update user set username=#{username}, sex=#{sex}, address=#{address}
+        where id = #{id}
+    </update>
+
+    <delete id="deleteById">
+        delete from user
+        where id = #{id}
+    </delete>
+
+</mapper>
