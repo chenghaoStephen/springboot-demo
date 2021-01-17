@@ -26,6 +26,7 @@ public class RedisConfig {
         cacheNames.add("role");
 
         ConcurrentHashMap<String, RedisCacheConfiguration> configMap = new ConcurrentHashMap<>();
+        // 配置缓存失效时间
         configMap.put("user", config.entryTtl(Duration.ofMinutes(30L)));
         configMap.put("role", config);
 
